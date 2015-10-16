@@ -31,7 +31,8 @@
             android:layout_height="wrap_content"
             android:text="Single Player"
             android:id="@+id/button"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:onClick="singlePlayer"/>
 
         <Button
             android:layout_width="wrap_content"
