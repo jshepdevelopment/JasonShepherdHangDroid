@@ -1,5 +1,5 @@
 # JS Hang Droid
-A hangman style word guessing app.
+A hangman-style word guessing app.
 
 Designed as class project for use in Rod Buhler's Android Application Development class.
 The basic application as Rod has developed exists in this application, too.
