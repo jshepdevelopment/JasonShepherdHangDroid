@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context=".GameActivity">
+
+<!-- About the game, should appear as action button -->
+<item
+    android:id="@+id/action_about"
+    android:icon="@drawable/ic_action_help"
+    android:title="@string/about_game"
+    app:showAsAction="always" />
+
+</menu>

@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">JS HangDroid</string>
-    <string name="title_activity_game">GameActivity</string>
+    <string name="about_game">Game Info</string>
+
+
+    <string-array name="game_words">
+        <item>WATERMELON</item>
+        <item>HAPPY</item>
+        <item>FUN</item>
+        <item>PHONE</item>
+        <item>CELERY</item>
+        <item>BUTTER</item>
+        <item>COMPUTER</item>
+        <item>EASY</item>
+        <item>TIME</item>
+    </string-array>
+
 </resources>

@@ -7,6 +7,8 @@
     <color name="title_green">#FF134e13</color>
     <color name="title_opaque">#99134e13</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="gray">#FFAAAAAA</color>
+
     <color name="red">#FFFF0000</color>
 
 </resources>
