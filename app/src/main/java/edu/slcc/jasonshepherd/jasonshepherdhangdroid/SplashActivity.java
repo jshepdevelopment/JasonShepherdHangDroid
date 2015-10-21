@@ -4,11 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
 public class SplashActivity extends AppCompatActivity {
+
+    //Declare a log TAG called JSLOG for logging purposes
+    private static final String JSLOG = "JSLOG";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,5 +53,6 @@ public class SplashActivity extends AppCompatActivity {
 
         // Use finish() to prevent return to splash activity
         finish();
+        Log.d(JSLOG, "Splashscreen complete. nextActivity() used to start MainActivity intent");
     }
 }

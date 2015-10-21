@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">JS HangDroid</string>
     <string name="about_game">Game Info</string>
+    <string name="refresh_word">New Word</string>
 
 
     <string-array name="game_words">

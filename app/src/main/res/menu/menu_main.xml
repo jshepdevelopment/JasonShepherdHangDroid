@@ -5,6 +5,12 @@ tools:context=".GameActivity">
 
 <!-- About the game, should appear as action button -->
 <item
+    android:id="@+id/action_refresh"
+    android:icon="@drawable/ic_action_refresh"
+    android:title="@string/refresh_word"
+    app:showAsAction="always" />
+
+<item
     android:id="@+id/action_about"
     android:icon="@drawable/ic_action_help"
     android:title="@string/about_game"

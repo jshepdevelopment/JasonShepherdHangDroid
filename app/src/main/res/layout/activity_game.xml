@@ -17,7 +17,8 @@
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:src="@drawable/hangdroid_0" />
+        android:src="@drawable/hangdroid_0"
+        android:layout_alignParentStart="true" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -31,57 +32,193 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="_"
             android:id="@+id/gameWordView"
             android:layout_marginRight="5dp"
             android:textSize="40dp"
             android:textStyle="bold"
-            android:textColor="@color/gray" />
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
         android:background="@drawable/gradient_background"
-        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
         android:gravity="center_vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/letterSelection"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Insert Letter"
-            android:id="@+id/prompt"
-            android:textSize="30dp"
-            android:textIsSelectable="false"
-            android:textStyle="bold" />
+            android:gravity="center_vertical"
+            android:paddingTop="15dp">
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/editTextLetter"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp" />
+            <Button
+                android:id="@+id/A"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="A"/>
+            <Button
+                android:id="@+id/B"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="B"/>
+            <Button
+                android:id="@+id/C"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="C"/>
+            <Button
+                android:id="@+id/D"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="D"/>
+            <Button
+                android:id="@+id/E"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="E"/>
+            <Button
+                android:id="@+id/F"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="F"/>
+            <Button
+                android:id="@+id/G"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="G"/>
+            <Button
+                android:id="@+id/H"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="H"/>
+            <Button
+                android:id="@+id/I"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="I"/>
+            <Button
+                android:id="@+id/J"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="J"/>
+            <Button
+                android:id="@+id/K"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="K"/>
+            <Button
+                android:id="@+id/L"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="L"/>
+            <Button
+                android:id="@+id/M"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="M"/>
+            <Button
+                android:id="@+id/N"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="N"/>
+            <Button
+                android:id="@+id/O"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="O"/>
+            <Button
+                android:id="@+id/P"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="P"/>
+            <Button
+                android:id="@+id/Q"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="Q"/>
+            <Button
+                android:id="@+id/R"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="R"/>
+            <Button
+                android:id="@+id/S"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="S"/>
+            <Button
+                android:id="@+id/T"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="T"/>
+            <Button
+                android:id="@+id/U"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="U"/>
+            <Button
+                android:id="@+id/V"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="V"/>
+            <Button
+                android:id="@+id/W"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="W"/>
+            <Button
+                android:id="@+id/X"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="X"/>
+            <Button
+                android:id="@+id/Y"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="Y"/>
+            <Button
+                android:id="@+id/Z"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="checkLetter"
+                android:text="Z"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Check Letter"
-            android:id="@+id/checkItButton" />
-    </LinearLayout>
+         </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Guessed Letters"
-        android:id="@+id/textViewWrong"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="@color/red"
-        android:textStyle="bold" />
+
+    </HorizontalScrollView>
+
+
+
+
 
 </RelativeLayout>
