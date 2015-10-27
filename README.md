@@ -10,12 +10,9 @@ Splashscreen uses full-screen.
 Support for guessing words of any length.
 Various UI enhancements.
 
-Credits:
-Jason Shepherd - Developer
-Rod Buhler - Instructor
+Developed by Jason Shepherd
 
-Graphics:
-Alexey Buzdin - Androidify
+Rod Buhler - Instructor
 
 Licence:
 MIT Licence
