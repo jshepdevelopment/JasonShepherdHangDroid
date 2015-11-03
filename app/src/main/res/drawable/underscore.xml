@@ -5,7 +5,7 @@
         android:width="2dp"
         android:color="#FF333333" />
     <padding android:bottom="31dp"/>
-    <solid android:color="#00000000" />
+    <solid android:color="#FFFFFF" />
     <size
         android:width="20dp" />
 </shape>

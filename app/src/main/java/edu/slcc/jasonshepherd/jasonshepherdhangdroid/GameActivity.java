@@ -2,6 +2,7 @@ package edu.slcc.jasonshepherd.jasonshepherdhangdroid;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -35,13 +36,18 @@ public class GameActivity extends AppCompatActivity {
     int letterGuessed;
     int letterMissed;
 
+    // store value of selected droid from droid select screen
+    int droidSelected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        // Set the hangroid view here, so that when a new word is created, there will
-        // not be a reference to null object.
+        Intent droidSelectIntent = getIntent();
+        droidSelected = droidSelectIntent.getIntExtra("droidSelectId", 0);
+
+        // Set the hangroid view here so when new word is created it is not a null object
         hangDroidView = (ImageView)findViewById(R.id.hangDroidView);
 
         // Method designates a word at random to be used as the current game word
@@ -82,8 +88,12 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         hangDroidView = (ImageView)findViewById(R.id.hangDroidView);
 
+        if (droidSelected == 1)hangDroidView.setImageResource(R.drawable.droid1);
+        if (droidSelected == 2)hangDroidView.setImageResource(R.drawable.droid2);
+
+
         // image views used for hangman, will need to set after content view inflated
-        hangDroidView.setImageResource(R.drawable.hangdroid_0);
+        //hangDroidView.setImageResource(R.drawable.hangdroid_0);
 
         // assign an array of strings to gameWords and set layout to use for the word
         String[] gameWords = getResources().getStringArray(R.array.game_words);
