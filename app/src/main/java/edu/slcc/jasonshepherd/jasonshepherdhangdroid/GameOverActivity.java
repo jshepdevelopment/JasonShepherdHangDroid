@@ -1,15 +1,13 @@
 package edu.slcc.jasonshepherd.jasonshepherdhangdroid;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import static edu.slcc.jasonshepherd.jasonshepherdhangdroid.R.drawable.*;
 
 /**
  * Created by Jason Shepherd on 11/4/2015.
@@ -61,13 +59,10 @@ public class GameOverActivity extends AppCompatActivity {
 
     }
 
-    private void playAgain() {
-
+    public void playAgain(View view) {
+        // Go back to the main menu
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
-
-    private void exitGame() {
-        //
-    }
-
 
 }
