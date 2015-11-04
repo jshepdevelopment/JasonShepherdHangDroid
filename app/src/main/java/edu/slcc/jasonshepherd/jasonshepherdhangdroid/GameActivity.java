@@ -26,26 +26,22 @@ public class GameActivity extends AppCompatActivity {
     public String currentGameWord;
 
     // needed to assign textViews, one for each letter of word
-    private LinearLayout wordLayout;
     private TextView[] letterViews;
 
     // imageview used to update hangdroid graphics
     ImageView hangDroidView;
 
-    // track to see if a letter was found in the word, or if it was missed
+    // track to see if a letter was found in the word, or if it was missed and points
     int letterGuessed;
     int letterMissed;
+    int points = 0;
+    boolean winner = false; // track whether a winner or loser
 
-    // store value of selected droid from droid select screen
-    int droidSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
-        Intent droidSelectIntent = getIntent();
-        droidSelected = droidSelectIntent.getIntExtra("droidSelectId", 0);
 
         // Set the hangroid view here so when new word is created it is not a null object
         hangDroidView = (ImageView)findViewById(R.id.hangDroidView);
@@ -85,25 +81,21 @@ public class GameActivity extends AppCompatActivity {
 
     // method to set game word at random
     private void setGameWord() {
+        // set up views
         setContentView(R.layout.activity_game);
-        hangDroidView = (ImageView)findViewById(R.id.hangDroidView);
-
-        if (droidSelected == 1)hangDroidView.setImageResource(R.drawable.droid1);
-        if (droidSelected == 2)hangDroidView.setImageResource(R.drawable.droid2);
-
-
-        // image views used for hangman, will need to set after content view inflated
-        //hangDroidView.setImageResource(R.drawable.hangdroid_0);
 
         // assign an array of strings to gameWords and set layout to use for the word
-        String[] gameWords = getResources().getStringArray(R.array.game_words);
-        wordLayout = (LinearLayout)findViewById(R.id.layoutLetters);
+        String gameWords = "algorithm analog app application array backup bandwidth binary bit bitmap bite blog blogger bookmark boot broadband browser buffer bug bus byte cache captcha client clipart clipboard command compile compress computer configure cookie copy cybercrime cyberspace dashboard data database debug decompress delete desktop development digital disk document domain dot download drag dynamic email emoticon encrypt encryption enter exabyte file finder firewall firmware flaming flash flowchart folder font format frame freeware gigabyte graphics hack hacker hardware host hyperlink hypertext icon inbox integer interface Internet iteration Java joystick kernel key keyboard keyword laptop link login logic lurking mainframe macro malware media memory mirror modem monitor motherboard mouse multimedia net network node notebook offline online option output page password paste path phishing piracy pirate platform podcast portal print printer privacy process program programmer protocol queue reboot resolution restore root router time save scan scanner screen screenshot script scroll security server shareware shell shift snapshot software spam spammer spreadsheet storage spyware supercomputer surf syntax table tag template terabyte teminal thread toolbar trash typeface undo Unix upload username user utility version virtual virus web webmaster website widget window wireless wiki workstation worm zip";
+        Log.d("JSLOG", "Number of words: " + gameWords.length());
+        String [] gameWordsArray = gameWords.split(" ");
+
+        LinearLayout wordLayout = (LinearLayout)findViewById(R.id.layoutLetters);
 
         // creates a random number based on the amount of strings in the gameWords array and then
         // assigns the current game word from random word
-        Random r = new Random();
-        int randomWordCount = r.nextInt(gameWords.length - 0) + 0;
-        currentGameWord = gameWords[randomWordCount];
+        int randomNumber = (int) (Math.random() * gameWordsArray.length);
+        Log.d("JSLOG", "Random Number: " + randomNumber);
+        currentGameWord = gameWordsArray[randomNumber];
 
         // array to store text views for each letter of current word and the underscores
         letterViews = new TextView[currentGameWord.length()];
@@ -122,7 +114,7 @@ public class GameActivity extends AppCompatActivity {
             // set all of the parameters, which we generally set in layout file and hide the letters
             letterViews[c].setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             letterViews[c].setGravity(Gravity.CENTER);
-            letterViews[c].setTextColor(Color.WHITE);
+            letterViews[c].setTextColor(Color.TRANSPARENT);
             letterViews[c].setTextSize(30);
             letterViews[c].setBackgroundResource(R.drawable.underscore);
 
@@ -195,64 +187,35 @@ public class GameActivity extends AppCompatActivity {
 
         // check for winner
         if (letterGuessed == currentGameWord.length()) {
+            // set boolean winner to true and increase score
+            winner = true;
+            points = points + 1;
+
+            // show a toast and log winner
             Toast.makeText(this, "You are Winner! Ha ha ha.", Toast.LENGTH_SHORT).show();
             Log.d(JSLOG, "We have a winner! Word " + currentGameWord + " was solved!");
-            displayWin();
+            // start the game over activity
+            gameOver();
         }
 
         // check for loser
         if (letterMissed == 5) {
+
+            // show a toast and log loser
             Toast.makeText(this, "You are Loser! Ha ha ha.", Toast.LENGTH_SHORT).show();
             Log.d(JSLOG, "We have a loser! Word " + currentGameWord + " was not solved!");
 
-            // show the word to the loser
+            // show the word to the loser and set the color to red
             for (int c = 0; c < currentGameWord.length(); c++) {
                 letterViews[c].setTextColor(Color.RED);
             }
-            displayLoss();
+            // start the game over activity
+            gameOver();
         }
     }
 
 
-    private void displayWin() {
-        // Display Alert Dialog
-        AlertDialog.Builder winBuild = new AlertDialog.Builder(this);
-        winBuild.setTitle("Congrats!");
-        winBuild.setMessage("You win!\n\nThe answer was:\n\n"+currentGameWord);
-        winBuild.setPositiveButton("Play Again",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        GameActivity.this.setGameWord();
-                    }});
 
-        winBuild.setNegativeButton("Exit",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        GameActivity.this.finish();
-                    }});
-
-        winBuild.show();
-    }
-
-    private void displayLoss() {
-        // Display Alert Dialog
-        AlertDialog.Builder winBuild = new AlertDialog.Builder(this);
-        winBuild.setTitle("Shucks");
-        winBuild.setMessage("You lose!\n\nThe answer was:\n\n"+currentGameWord);
-        winBuild.setPositiveButton("Play Again",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        GameActivity.this.setGameWord();
-                    }});
-
-        winBuild.setNegativeButton("Exit",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        GameActivity.this.finish();
-                    }});
-
-        winBuild.show();
-    }
 
     private void displayAbout() {
         // Display Alert Dialog
@@ -273,5 +236,20 @@ public class GameActivity extends AppCompatActivity {
                     }});
 
         winBuild.show();
+    }
+
+    private void gameOver() {
+
+        // create the intent
+        Intent intent = new Intent(this, GameOverActivity.class);
+
+        // send data with the intent using putExtra
+        intent.putExtra("POINTSID", points); // sending points
+        intent.putExtra("GAMEWORD", currentGameWord); // sending game word
+        intent.putExtra("WINNER", winner); // sending boolean winner
+
+        // start the activity
+        startActivity(intent);
+
     }
 }

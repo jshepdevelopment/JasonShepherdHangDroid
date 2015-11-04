@@ -31,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
         //startActivity(intent);
         //Log.d(JSLOG, "singlePlayer selected. GameActivity intent started.");
 
-        Intent intent = new Intent(this, DroidSelectActivity.class);
+        Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
-        Log.d(JSLOG, "singlePlayer selected. AndroidifyActivity intent started.");
+        Log.d(JSLOG, "singlePlayer selected. Game Activity started.");
 
     }
 }
