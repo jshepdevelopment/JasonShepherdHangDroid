@@ -17,8 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Random;
-
 public class GameActivity extends AppCompatActivity {
 
     //Declare a log TAG called JSLOG for logging purposes
@@ -43,9 +41,6 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        // Set the hangroid view here so when new word is created it is not a null object
-        hangDroidView = (ImageView)findViewById(R.id.hangDroidView);
-
         // Method designates a word at random to be used as the current game word
         setGameWord();
      }
@@ -59,10 +54,8 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        // handle the action bar clicks
+         int id = item.getItemId();
 
         // action to call when refresh selected
         if (id == R.id.action_refresh) {
@@ -83,6 +76,7 @@ public class GameActivity extends AppCompatActivity {
     private void setGameWord() {
         // set up views
         setContentView(R.layout.activity_game);
+        hangDroidView = (ImageView)findViewById(R.id.hangDroidView);
 
         // assign an array of strings to gameWords and set layout to use for the word
         String gameWords = "algorithm analog app application array backup bandwidth binary bit bitmap bite blog blogger bookmark boot broadband browser buffer bug bus byte cache captcha client clipart clipboard command compile compress computer configure cookie copy cybercrime cyberspace dashboard data database debug decompress delete desktop development digital disk document domain dot download drag dynamic email emoticon encrypt encryption enter exabyte file finder firewall firmware flaming flash flowchart folder font format frame freeware gigabyte graphics hack hacker hardware host hyperlink hypertext icon inbox integer interface Internet iteration Java joystick kernel key keyboard keyword laptop link login logic lurking mainframe macro malware media memory mirror modem monitor motherboard mouse multimedia net network node notebook offline online option output page password paste path phishing piracy pirate platform podcast portal print printer privacy process program programmer protocol queue reboot resolution restore root router time save scan scanner screen screenshot script scroll security server shareware shell shift snapshot software spam spammer spreadsheet storage spyware supercomputer surf syntax table tag template terabyte teminal thread toolbar trash typeface undo Unix upload username user utility version virtual virus web webmaster website widget window wireless wiki workstation worm zip";
@@ -141,6 +135,8 @@ public class GameActivity extends AppCompatActivity {
         ((TextView)view).setVisibility(View.GONE);
         String letterString = ((TextView)view).getText().toString();
         char aLetter = letterString.charAt(0);
+
+        aLetter = Character.toLowerCase(aLetter); // force character to lowercase
         Log.d(JSLOG, "Player selected letter: " + aLetter);
 
         // used to track whether a letter has been guessed correctly or missed
@@ -159,7 +155,7 @@ public class GameActivity extends AppCompatActivity {
                 letterGuessed++;
 
                 // show the corresponding letter when the letter matches the guess
-                letterViews[i].setTextColor(Color.BLACK);
+                letterViews[i].setTextColor(Color.WHITE);
                 Toast.makeText(this, "Letter " + aLetter + " found!", Toast.LENGTH_SHORT).show();
                 Log.d(JSLOG, "Player found letter: " + aLetter);
             }
@@ -194,6 +190,7 @@ public class GameActivity extends AppCompatActivity {
             // show a toast and log winner
             Toast.makeText(this, "You are Winner! Ha ha ha.", Toast.LENGTH_SHORT).show();
             Log.d(JSLOG, "We have a winner! Word " + currentGameWord + " was solved!");
+
             // start the game over activity
             gameOver();
         }
@@ -205,10 +202,6 @@ public class GameActivity extends AppCompatActivity {
             Toast.makeText(this, "You are Loser! Ha ha ha.", Toast.LENGTH_SHORT).show();
             Log.d(JSLOG, "We have a loser! Word " + currentGameWord + " was not solved!");
 
-            // show the word to the loser and set the color to red
-            for (int c = 0; c < currentGameWord.length(); c++) {
-                letterViews[c].setTextColor(Color.RED);
-            }
             // start the game over activity
             gameOver();
         }

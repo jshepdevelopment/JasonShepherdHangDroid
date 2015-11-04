@@ -5,26 +5,26 @@
     android:layout_height="match_parent"
     android:paddingBottom="8dp"
     tools:context="edu.slcc.jasonshepherd.jasonshepherdhangdroid.GameActivity"
+    android:id="@+id/gameOverLayout"
     android:background="@drawable/background">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
         android:id="@+id/tree"
         android:contentDescription="@string/app_name"
         android:src="@drawable/tree"
+        android:scaleType="fitXY"
         android:paddingBottom="64dp" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/hangDroidView"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
         android:contentDescription="@string/app_name"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"/>
+/>
 
 
 
