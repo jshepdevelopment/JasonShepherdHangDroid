@@ -132,7 +132,7 @@ public class GameActivity extends AppCompatActivity {
 
         // first hide the button that was just pressed then check which letter the user has pressed
         //  by looking at the letter in the textview. Finally store as char and log
-        ((TextView)view).setVisibility(View.GONE);
+        view.setVisibility(View.GONE);
         String letterString = ((TextView)view).getText().toString();
         char aLetter = letterString.charAt(0);
 
@@ -192,7 +192,7 @@ public class GameActivity extends AppCompatActivity {
 
             // show a toast and log winner
             Toast.makeText(this, "You are Winner! Ha ha ha.", Toast.LENGTH_SHORT).show();
-            Log.d(JSLOG, "We have a winner! Word " + currentGameWord + " was solved!");
+            Log.d(JSLOG, "We have a winner! The word ***" + currentGameWord + "*** was solved!");
 
             // start the game over activity
             gameOver();
@@ -203,15 +203,12 @@ public class GameActivity extends AppCompatActivity {
 
             // show a toast and log loser
             Toast.makeText(this, "You are Loser! Ha ha ha.", Toast.LENGTH_SHORT).show();
-            Log.d(JSLOG, "We have a loser! Word " + currentGameWord + " was not solved!");
+            Log.d(JSLOG, "We have a loser! The word ***" + currentGameWord + "*** was not solved!");
 
             // start the game over activity
             gameOver();
         }
     }
-
-
-
 
     private void displayAbout() {
         // Display Alert Dialog
