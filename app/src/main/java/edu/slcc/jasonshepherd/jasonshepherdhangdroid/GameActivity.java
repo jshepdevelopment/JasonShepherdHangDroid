@@ -158,6 +158,10 @@ public class GameActivity extends AppCompatActivity {
                 letterViews[i].setTextColor(Color.WHITE);
                 Toast.makeText(this, "Letter " + aLetter + " found!", Toast.LENGTH_SHORT).show();
                 Log.d(JSLOG, "Player found letter: " + aLetter);
+
+                // increase points
+                points = points + 1; // one point scored for each correct letter in word
+                Log.d(JSLOG, "Points increased to " + points);
             }
         }
 
@@ -185,7 +189,6 @@ public class GameActivity extends AppCompatActivity {
         if (letterGuessed == currentGameWord.length()) {
             // set boolean winner to true and increase score
             winner = true;
-            points = points + 1;
 
             // show a toast and log winner
             Toast.makeText(this, "You are Winner! Ha ha ha.", Toast.LENGTH_SHORT).show();

@@ -36,4 +36,18 @@ public class MainActivity extends AppCompatActivity {
         Log.d(JSLOG, "singlePlayer selected. Game Activity started.");
 
     }
+
+    public void multiPlayer(View view) {
+
+        // build an explicit intent which uses content as first parameter and activity as second param.
+        // then start the intent with startActivity() and log that the GameActivity intent has started
+        //Intent intent = new Intent(this, GameActivity.class);
+        //startActivity(intent);
+        //Log.d(JSLOG, "singlePlayer selected. GameActivity intent started.");
+
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+        Log.d(JSLOG, "singlePlayer selected. Game Activity started.");
+
+    }
 }

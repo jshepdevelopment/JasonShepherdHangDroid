@@ -36,7 +36,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="      Single Player      "
+            android:text="      One Player      "
             android:textColor="@color/white"
             android:id="@+id/button"
             android:layout_marginBottom="10dp"
@@ -46,7 +46,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="      Multi-Player       "
+            android:text="      Two Players       "
             android:textColor="@color/white"
             android:id="@+id/button2"
             android:layout_marginBottom="10dp"
@@ -55,7 +55,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="           Scores            "
+            android:text="        High Scores        "
             android:textColor="@color/white"
             android:id="@+id/button3"
             android:layout_marginBottom="10dp"
