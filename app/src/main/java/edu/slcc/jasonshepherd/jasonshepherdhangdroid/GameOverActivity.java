@@ -1,6 +1,7 @@
 package edu.slcc.jasonshepherd.jasonshepherdhangdroid;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,7 +24,7 @@ public class GameOverActivity extends AppCompatActivity {
     // define the layout, so we can change background depending on win or loss
     RelativeLayout gameOverLayout;
 
-    // variables needed to display game word and high score
+    // variables and views needed to display game word, points and win/loss message
     String gameWord;
     TextView gameWordView;
     TextView gamePointsView;
@@ -32,7 +33,7 @@ public class GameOverActivity extends AppCompatActivity {
     // variable for application Shared Preferences for storing points and name
     SharedPreferences hangDroidPrefs;
 
-    // points and name
+    // variables to store points and player name for high score
     int points;
     private String playerName;
 
@@ -61,9 +62,14 @@ public class GameOverActivity extends AppCompatActivity {
         gamePointsView = (TextView)findViewById((R.id.gamePointsView));
         gamePointsView.setText(String.valueOf(points)); // this is a sweet and easy way
 
-        // set and show the high score
-        setHighScore();
-        showHighScore();
+        // get values from prefs file to determine if new high score is higher than old high
+        SharedPreferences getHangDroidPrefs = getSharedPreferences("JSHangDroidPrefs", Context.MODE_PRIVATE);
+        int prefsPointsData = hangDroidPrefs.getInt("HIGH_SCORE_KEY", 0);
+
+        // add the high score if it is more than the high score in the prefs file
+        if(prefsPointsData < points) {
+            setHighScore();
+        }
 
         // call method based on whether player is winner or loser
         if(winner) {
@@ -71,9 +77,8 @@ public class GameOverActivity extends AppCompatActivity {
         } else displayLoss();
     }
 
+    // method to use if game was won
     private void displayWin() {
-
-
         // apply winner background accordingly
         gameOverLayout.setBackgroundResource(R.drawable.game_over_win);
         // add congrats to winner
@@ -82,13 +87,13 @@ public class GameOverActivity extends AppCompatActivity {
         gameWordView.setTextColor(Color.GREEN);
    }
 
+    // method to use if game was lost
     private void displayLoss() {
-
         // set game word to red
         gameWordView.setTextColor(Color.RED);
-
     }
 
+    // method to play game again
     public void playAgain(View view) {
         // Go back to the main menu
         Intent intent = new Intent(this, MainActivity.class);
@@ -96,42 +101,34 @@ public class GameOverActivity extends AppCompatActivity {
     }
 
     private void setHighScore() {
+        // Display High Score Dialog by creating an alert dialog called winBuild
+        AlertDialog.Builder dialogBuild = new AlertDialog.Builder(this);
+        dialogBuild.setTitle("Congrats!");
+        dialogBuild.setMessage("You've taken the high score with " + points + " points!");
 
-        // Display High Score Dialog
-        AlertDialog.Builder winBuild = new AlertDialog.Builder(this);
-        winBuild.setTitle("Congrats!");
-        winBuild.setMessage("You've reached a high score of " + points);
-
-        //set up input
+        //set up a text field for input
         final EditText nameInput= new EditText(this);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        nameInput.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        winBuild.setView(nameInput);
+        nameInput.setInputType(InputType.TYPE_CLASS_TEXT);
+        dialogBuild.setView(nameInput);
 
-        winBuild.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        // save the high score when user selects ok button
+        dialogBuild.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 playerName = nameInput.getText().toString();
-
-                // set the high score
+                // set the high score by accessing the shared prefs file
                 SharedPreferences.Editor highScoreEditor = hangDroidPrefs.edit();
                 highScoreEditor.putString("PLAYER_NAME_KEY", playerName);
                 highScoreEditor.putInt("HIGH_SCORE_KEY", points);
                 highScoreEditor.apply();
-
-                // log the high score
+                // log the high score for debugging
                 Log.d("JSLOG", "High score logged as " + playerName + " " + points);
-
             }
         });
 
-        // show dialog
-        winBuild.show();
-
-    }
-
-    private void showHighScore() {
-
+        // show the dialog after building it
+        dialogBuild.show();
     }
 
 }

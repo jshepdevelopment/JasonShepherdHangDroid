@@ -19,16 +19,13 @@ import android.widget.Toast;
 
 public class GameActivity extends AppCompatActivity {
 
-    // declare a log TAG called JSLOG for logging purposes
-    private static final String JSLOG = "JSLOG";
-
     // string to store the game word
     public String currentGameWord;
 
-    // TextView array needed to assign textViews, one for each letter of word
+    // textview array needed to assign textViews, one for each letter of word
     private TextView[] letterViews;
 
-    // ImageView used to update hangdroid graphics
+    // imageview used to update hangdroid graphics
     ImageView hangDroidView;
 
     // track to see if a letter was found in the word, or if it was missed and points
@@ -43,11 +40,10 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        // Method designates a word at random to be used as the current game word
-
         // get multiplayer flag if game started as multiplayer, defaults to single player
-        // will set the word if the multiplayer flag is enabled
         multiPlayer = getIntent().getBooleanExtra("MULTIPLAYER_FLAG", false);
+
+        // set the game word as the guess word value if the game was started as multiplayer
         if(multiPlayer) currentGameWord = getIntent().getStringExtra("GUESS_WORD");
 
         // setGameWord method accepts an argument of type boolean, which is boolean multiPlayer
@@ -56,14 +52,14 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // inflating the menu to add items to action bar
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // handle the action bar clicks
+        // handle the action bar button presses
          int id = item.getItemId();
 
         // action to call when refresh selected
@@ -81,7 +77,7 @@ public class GameActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // method to set game word at random
+    // method to set game word will set a new game word if the game is a single player game
     private void setGameWord(boolean multiPlayer) {
 
         // set up the views and word layout
@@ -89,7 +85,7 @@ public class GameActivity extends AppCompatActivity {
         hangDroidView = (ImageView)findViewById(R.id.hangDroidView);
         LinearLayout wordLayout = (LinearLayout) findViewById(R.id.layoutLetters);
 
-        // only set a word if multiplayer flag is false
+        // only set a word if the multiplayer flag is false, otherwise the word was already set
         if(!multiPlayer) {
 
             // assign an array of strings to gameWords and set layout to use for the word
@@ -104,19 +100,17 @@ public class GameActivity extends AppCompatActivity {
             currentGameWord = gameWordsArray[randomNumber];
         }
 
-
-
         // array to store text views for each letter of current word and the underscores
         letterViews = new TextView[currentGameWord.length()];
 
-        // get rid of the text views in the layout, because new views are needed to replace
-        // existing views from current word if a new game. ie new word is needed
+        // get rid of the text views in the layout, because new views are needed for new word
         wordLayout.removeAllViews();
 
         // go through each letter of current word to assign to the text views
         for (int c = 0; c < currentGameWord.length(); c++) {
-            letterViews[c] = new TextView(this);
 
+            // make a textview for each letter
+            letterViews[c] = new TextView(this);
             // set the current text view to the current letter
             letterViews[c].setText("" + currentGameWord.charAt(c));
 
@@ -135,62 +129,64 @@ public class GameActivity extends AppCompatActivity {
         letterGuessed = 0;
         letterMissed = 0;
 
-        // send a Toast to inform player(s) that the new word is ready
+        // send a toast to inform player(s) that the new word is ready
         Toast.makeText(this, "A new word is ready.", Toast.LENGTH_SHORT).show();
 
         // log the current game word for debugging
-        Log.d(JSLOG, "Game word " + currentGameWord + " set successfully.");
+        Log.d("JSLOG", "Game word " + currentGameWord + " set successfully.");
 
        }
 
+    // method that is used when a letter is selected
     public void checkLetter(View view) {
 
         // first hide the button that was just pressed then check which letter the user has pressed
-        // by looking at the letter in the textview. Finally store as char and log
+        // by looking at the letter in the textview then store as char and log
         view.setVisibility(View.GONE);
         String letterString = ((TextView)view).getText().toString();
         char aLetter = letterString.charAt(0);
 
-        aLetter = Character.toLowerCase(aLetter); // force character to lowercase
-        Log.d(JSLOG, "Player selected letter: " + aLetter);
+        // force character to lowercase then log letter selected
+        aLetter = Character.toLowerCase(aLetter);
+        Log.d("JSLOG", "Player selected letter: " + aLetter);
 
         // used to track whether a letter has been guessed correctly or missed
         boolean letterGuessedFlag = false;
         boolean letterMissedFlag = false;
 
-        // loop will check if the letter guessed, matches a letter in the word, along with
-        // logging whether the letter has been found or not
+        // loop will check if the letter guessed matches a letter in the word then log for debug
         for(int i = 0; i < currentGameWord.length(); i++) {
 
             // Has guessed correctly
             if (currentGameWord.charAt(i) == aLetter) {
                 letterGuessedFlag = true;
-                // it is necessary to increment counter here because some words have the same
-                // letter more than once
+                // necessary to increment because some words have the same letter more than once
                 letterGuessed++;
 
-                // show the corresponding letter when the letter matches the guess
+                // show the corresponding letter when the letter matches the guess then logs
                 letterViews[i].setTextColor(Color.WHITE);
                 Toast.makeText(this, "Letter " + aLetter + " found!", Toast.LENGTH_SHORT).show();
-                Log.d(JSLOG, "Player found letter: " + aLetter);
+                Log.d("JSLOG", "Player found letter: " + aLetter);
 
-                // increase points
+                // increase points and log for debug
                 points = points + 1; // one point scored for each correct letter in word
-                Log.d(JSLOG, "Points increased to " + points);
+                Log.d("JSLOG", "Points increased to " + points);
             }
         }
 
-        //check for letters guessed or missed, reset flags and increment counters
+        // update flags for letters guessed correctly
         if (letterGuessedFlag) {
             letterGuessedFlag = false;
-            Log.d(JSLOG, "Player has correctly guessed " + letterGuessed + " letters.");
+            Log.d("JSLOG", "Player has correctly guessed " + letterGuessed + " letters.");
         } else letterMissedFlag = true;
 
+        // increment counter when a letter is missed, necessary to track when a game is lost
         if (letterMissedFlag) {
             letterMissedFlag = false;
             letterMissed++;
+            // let user know via toast and then log for debug
             Toast.makeText(this, "There is no " + aLetter + "! Try again!", Toast.LENGTH_SHORT).show();
-            Log.d(JSLOG, "Player has missed " + letterMissed + " times.");
+            Log.d("JSLOG", "Player has missed " + letterMissed + " times.");
         }
 
         // display image based on missed guesses
@@ -200,58 +196,55 @@ public class GameActivity extends AppCompatActivity {
         if (letterMissed == 4)hangDroidView.setImageResource(R.drawable.hangdroid_4);
         if (letterMissed == 5)hangDroidView.setImageResource(R.drawable.hangdroid_5);
 
-        // check for winner
+        // check for winner by comparing number of correct guesses equal to word length
         if (letterGuessed == currentGameWord.length()) {
             // set boolean winner to true
             winner = true;
-
             // show a toast and log winner
             Toast.makeText(this, "You are Winner! Ha ha ha.", Toast.LENGTH_SHORT).show();
-            Log.d(JSLOG, "We have a winner! The word ***" + currentGameWord + "*** was solved!");
-
+            Log.d("JSLOG", "We have a winner! The word ***" + currentGameWord + "*** was solved!");
             // start the game over activity
             gameOver();
         }
 
-        // check for loser
+        // check for loser if loser has guessed five times without guessing all letters in word
         if (letterMissed == 5) {
-
             // show a toast and log loser
             Toast.makeText(this, "You are Loser! Ha ha ha.", Toast.LENGTH_SHORT).show();
-            Log.d(JSLOG, "We have a loser! The word ***" + currentGameWord + "*** was not solved!");
-
+            Log.d("JSLOG", "We have a loser! The word ***" + currentGameWord + "*** was not solved!");
             // start the game over activity
             gameOver();
         }
     }
 
+    // a simple about program dialog box method
     private void displayAbout() {
-        // Display Alert Dialog
-        AlertDialog.Builder winBuild = new AlertDialog.Builder(this);
-        winBuild.setTitle("JS HangDroid");
-        winBuild.setMessage("A hangman game.\nDeveloped for Buhler's CSIS 2630.\nVersion 1.0");
-        winBuild.setPositiveButton("Ok",
+        // create an AlertDialog builder object called dialogBuild
+        AlertDialog.Builder dialogBuild = new AlertDialog.Builder(this);
+        //set the dialog title and a message
+        dialogBuild.setTitle("JS HangDroid");
+        dialogBuild.setMessage("A hangman game.\nDeveloped for Buhler's CSIS 2630.\nVersion 1.0");
+
+        // adds a button to the dialog only one needed for this dialog
+        dialogBuild.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
+                        // there's nothing that needs to happen here so the dialog will just close
+                        // and return to the game
                     }
                 });
 
-        winBuild.setNegativeButton("Exit",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        GameActivity.this.finish();
-                    }});
-
-        winBuild.show();
+        // show the dialog box after building it
+        dialogBuild.show();
     }
 
+    // method to call when  the game is over
     private void gameOver() {
 
-        // create the intent
+        // create the intent to start the activity
         Intent intent = new Intent(this, GameOverActivity.class);
 
-        // send data with the intent using putExtra
+        // send points, gameword, and winner data with the intent using putExtra
         intent.putExtra("POINTSID", points); // sending points
         intent.putExtra("GAMEWORD", currentGameWord); // sending game word
         intent.putExtra("WINNER", winner); // sending boolean winner
