@@ -5,54 +5,48 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.WindowManager;
 
+/**
+ * Created by Jason Shepherd on 10/21/2015.
+ */
+
 public class SplashActivity extends AppCompatActivity {
-
-    //Declare a log TAG called JSLOG for logging purposes
-    private static final String JSLOG = "JSLOG";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Use getWindow() to set the layout parameters to fullscreen
-        // This will effectively hide the system's status bar
+        // ese getWindow() to set the layout parameters to fullscreen to hide system status bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        // getSupportActionBar() is used to get a reference to the activity's action bar
-        // adding the .hide() to hide the activities action bar
-        //getSupportActionBar().hide();
 
         // important to set content view after the above methods, to avoid crash
         setContentView(R.layout.activity_splash);
 
-        // New thread
+        // start a new thread
         Runnable wait3seconds = new Runnable() {
             public void run() {
                 nextActivity();
             }
         };
 
-        // Creates a handler to wait and display splash screen for 3 seconds
+        // creates a handler to wait and display splash screen for 3 seconds
         Handler handler = new Handler();
         handler.postDelayed(wait3seconds, 3000);
     }
 
-    // Method to create an intent and use startActivity() to pass created intent
-    // will start the Activity which is second parameter provided to new Intent
+    // method to create an intent and use startActivity() to pass created intent
     public void nextActivity() {
 
-        // Start next activity
+        // build an explicit intent to start the next activity
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
-        // Use finish() to prevent return to splash activity
+        // use finish() to prevent return to splash activity, instead of overriding back button
         finish();
-        Log.d(JSLOG, "Splashscreen complete. nextActivity() used to start MainActivity intent");
+
+        // log for debugging purposes
+        Log.d("JSLOG", "Splashscreen complete. nextActivity() used to start MainActivity intent");
     }
 }
