@@ -27,6 +27,7 @@ public class GameOverActivity extends AppCompatActivity {
     String gameWord;
     TextView gameWordView;
     TextView gamePointsView;
+    TextView gameLoseWin;
 
     // variable for application Shared Preferences for storing points and name
     SharedPreferences hangDroidPrefs;
@@ -55,6 +56,8 @@ public class GameOverActivity extends AppCompatActivity {
         gameWordView = (TextView)findViewById(R.id.gameWordView);
         gameWordView.setText(gameWord);
 
+        // display game word and points
+        gameLoseWin = (TextView)findViewById(R.id.gameLoseWin);
         gamePointsView = (TextView)findViewById((R.id.gamePointsView));
         gamePointsView.setText(String.valueOf(points)); // this is a sweet and easy way
 
@@ -73,6 +76,8 @@ public class GameOverActivity extends AppCompatActivity {
 
         // apply winner background accordingly
         gameOverLayout.setBackgroundResource(R.drawable.game_over_win);
+        // add congrats to winner
+        gameLoseWin.setText("Congrats!");
         // set game word to green
         gameWordView.setTextColor(Color.GREEN);
    }

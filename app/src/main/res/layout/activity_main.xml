@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             android:text="      Two Players       "
             android:textColor="@color/white"
+            android:onClick="multiPlayer"
             android:id="@+id/button2"
             android:layout_marginBottom="10dp"
             android:background="@drawable/button" />

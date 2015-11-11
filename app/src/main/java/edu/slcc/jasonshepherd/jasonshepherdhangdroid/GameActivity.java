@@ -19,22 +19,24 @@ import android.widget.Toast;
 
 public class GameActivity extends AppCompatActivity {
 
-    //Declare a log TAG called JSLOG for logging purposes
+    // declare a log TAG called JSLOG for logging purposes
     private static final String JSLOG = "JSLOG";
+
+    // string to store the game word
     public String currentGameWord;
 
-    // needed to assign textViews, one for each letter of word
+    // TextView array needed to assign textViews, one for each letter of word
     private TextView[] letterViews;
 
-    // imageview used to update hangdroid graphics
+    // ImageView used to update hangdroid graphics
     ImageView hangDroidView;
 
     // track to see if a letter was found in the word, or if it was missed and points
-    int letterGuessed;
-    int letterMissed;
-    int points = 0;
+    int letterGuessed;  // track how many letters guessed
+    int letterMissed;   // track how many letters missed
+    int points = 0;     // track the score as points
     boolean winner = false; // track whether a winner or loser
-
+    boolean multiPlayer = false; // used to check if this is a multiplayer game
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,14 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         // Method designates a word at random to be used as the current game word
-        setGameWord();
+
+        // get multiplayer flag if game started as multiplayer, defaults to single player
+        // will set the word if the multiplayer flag is enabled
+        multiPlayer = getIntent().getBooleanExtra("MULTIPLAYER_FLAG", false);
+        if(multiPlayer) currentGameWord = getIntent().getStringExtra("GUESS_WORD");
+
+        // setGameWord method accepts an argument of type boolean, which is boolean multiPlayer
+        setGameWord(multiPlayer);
      }
 
     @Override
@@ -59,7 +68,7 @@ public class GameActivity extends AppCompatActivity {
 
         // action to call when refresh selected
         if (id == R.id.action_refresh) {
-            setGameWord();
+            setGameWord(false); // setGameWord multiplayer argument is false on new word select
             return true;
         }
 
@@ -73,23 +82,29 @@ public class GameActivity extends AppCompatActivity {
     }
 
     // method to set game word at random
-    private void setGameWord() {
-        // set up views
+    private void setGameWord(boolean multiPlayer) {
+
+        // set up the views and word layout
         setContentView(R.layout.activity_game);
         hangDroidView = (ImageView)findViewById(R.id.hangDroidView);
+        LinearLayout wordLayout = (LinearLayout) findViewById(R.id.layoutLetters);
 
-        // assign an array of strings to gameWords and set layout to use for the word
-        String gameWords = "algorithm analog app application array backup bandwidth binary bit bitmap bite blog blogger bookmark boot broadband browser buffer bug bus byte cache captcha client clipart clipboard command compile compress computer configure cookie copy cybercrime cyberspace dashboard data database debug decompress delete desktop development digital disk document domain dot download drag dynamic email emoticon encrypt encryption enter exabyte file finder firewall firmware flaming flash flowchart folder font format frame freeware gigabyte graphics hack hacker hardware host hyperlink hypertext icon inbox integer interface Internet iteration Java joystick kernel key keyboard keyword laptop link login logic lurking mainframe macro malware media memory mirror modem monitor motherboard mouse multimedia net network node notebook offline online option output page password paste path phishing piracy pirate platform podcast portal print printer privacy process program programmer protocol queue reboot resolution restore root router time save scan scanner screen screenshot script scroll security server shareware shell shift snapshot software spam spammer spreadsheet storage spyware supercomputer surf syntax table tag template terabyte teminal thread toolbar trash typeface undo Unix upload username user utility version virtual virus web webmaster website widget window wireless wiki workstation worm zip";
-        Log.d("JSLOG", "Number of words: " + gameWords.length());
-        String [] gameWordsArray = gameWords.split(" ");
+        // only set a word if multiplayer flag is false
+        if(!multiPlayer) {
 
-        LinearLayout wordLayout = (LinearLayout)findViewById(R.id.layoutLetters);
+            // assign an array of strings to gameWords and set layout to use for the word
+            String gameWords = "algorithm analog app application array backup bandwidth binary bit bitmap bite blog blogger bookmark boot broadband browser buffer bug bus byte cache captcha client clipart clipboard command compile compress computer configure cookie copy cybercrime cyberspace dashboard data database debug decompress delete desktop development digital disk document domain dot download drag dynamic email emoticon encrypt encryption enter exabyte file finder firewall firmware flaming flash flowchart folder font format frame freeware gigabyte graphics hack hacker hardware host hyperlink hypertext icon inbox integer interface Internet iteration Java joystick kernel key keyboard keyword laptop link login logic lurking mainframe macro malware media memory mirror modem monitor motherboard mouse multimedia net network node notebook offline online option output page password paste path phishing piracy pirate platform podcast portal print printer privacy process program programmer protocol queue reboot resolution restore root router time save scan scanner screen screenshot script scroll security server shareware shell shift snapshot software spam spammer spreadsheet storage spyware supercomputer surf syntax table tag template terabyte teminal thread toolbar trash typeface undo Unix upload username user utility version virtual virus web webmaster website widget window wireless wiki workstation worm zip";
+            Log.d("JSLOG", "Number of words: " + gameWords.length());
+            String[] gameWordsArray = gameWords.split(" ");
 
-        // creates a random number based on the amount of strings in the gameWords array and then
-        // assigns the current game word from random word
-        int randomNumber = (int) (Math.random() * gameWordsArray.length);
-        Log.d("JSLOG", "Random Number: " + randomNumber);
-        currentGameWord = gameWordsArray[randomNumber];
+            // creates a random number based on the amount of strings in the gameWords array and then
+            // assigns the current game word from random word
+            int randomNumber = (int) (Math.random() * gameWordsArray.length);
+            Log.d("JSLOG", "Random Number: " + randomNumber);
+            currentGameWord = gameWordsArray[randomNumber];
+        }
+
+
 
         // array to store text views for each letter of current word and the underscores
         letterViews = new TextView[currentGameWord.length()];
@@ -123,7 +138,7 @@ public class GameActivity extends AppCompatActivity {
         // send a Toast to inform player(s) that the new word is ready
         Toast.makeText(this, "A new word is ready.", Toast.LENGTH_SHORT).show();
 
-        // log the current game word
+        // log the current game word for debugging
         Log.d(JSLOG, "Game word " + currentGameWord + " set successfully.");
 
        }
@@ -131,7 +146,7 @@ public class GameActivity extends AppCompatActivity {
     public void checkLetter(View view) {
 
         // first hide the button that was just pressed then check which letter the user has pressed
-        //  by looking at the letter in the textview. Finally store as char and log
+        // by looking at the letter in the textview. Finally store as char and log
         view.setVisibility(View.GONE);
         String letterString = ((TextView)view).getText().toString();
         char aLetter = letterString.charAt(0);
@@ -187,7 +202,7 @@ public class GameActivity extends AppCompatActivity {
 
         // check for winner
         if (letterGuessed == currentGameWord.length()) {
-            // set boolean winner to true and increase score
+            // set boolean winner to true
             winner = true;
 
             // show a toast and log winner

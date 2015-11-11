@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         // then start the intent with startActivity() and log that the GameActivity intent has started
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
-        Log.d(JSLOG, "singlePlayer selected. Game Activity started.");
+        Log.d(JSLOG, "singlePlayer selected. GameActivity started.");
 
     }
 
@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
         // build an explicit intent which uses content as first parameter and activity as second param.
         // then start the intent with startActivity() and log that the GameActivity intent has started
-        Intent intent = new Intent(this, GameActivity.class);
+        Intent intent = new Intent(this, MultiPlayerActivity.class);
         startActivity(intent);
-        Log.d(JSLOG, "singlePlayer selected. Game Activity started.");
+        Log.d(JSLOG, "multiPlayer selected. MultiPlayerActivity started.");
 
     }
 
