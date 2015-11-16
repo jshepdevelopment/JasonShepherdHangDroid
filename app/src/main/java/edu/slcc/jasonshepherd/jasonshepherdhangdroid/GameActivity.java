@@ -133,7 +133,7 @@ public class GameActivity extends AppCompatActivity {
         Toast.makeText(this, "A new word is ready.", Toast.LENGTH_SHORT).show();
 
         // log the current game word for debugging
-        Log.d("JSLOG", "Game word " + currentGameWord + " set successfully.");
+        Log.d("JSLOG", "Game word ***" + currentGameWord + "*** set successfully.");
 
        }
 

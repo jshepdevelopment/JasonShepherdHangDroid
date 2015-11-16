@@ -11,7 +11,7 @@
     tools:context="edu.slcc.jasonshepherd.jasonshepherdhangdroid.MultiPlayerActivity">
 
     <EditText
-        android:layout_width="350px"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:maxLength="10"
         android:id="@+id/editTextWord"

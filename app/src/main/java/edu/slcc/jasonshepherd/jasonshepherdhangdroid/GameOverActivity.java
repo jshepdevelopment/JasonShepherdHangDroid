@@ -62,9 +62,9 @@ public class GameOverActivity extends AppCompatActivity {
         gamePointsView = (TextView)findViewById((R.id.gamePointsView));
         gamePointsView.setText(String.valueOf(points)); // this is a sweet and easy way
 
-        // get values from prefs file to determine if new high score is higher than old high
+        // get values from shared prefs file to determine if new high score is higher than old high
         SharedPreferences getHangDroidPrefs = getSharedPreferences("JSHangDroidPrefs", Context.MODE_PRIVATE);
-        int prefsPointsData = hangDroidPrefs.getInt("HIGH_SCORE_KEY", 0);
+        int prefsPointsData = getHangDroidPrefs.getInt("HIGH_SCORE_KEY", 0);
 
         // add the high score if it is more than the high score in the prefs file
         if(prefsPointsData < points) {
