@@ -14,7 +14,6 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:src="@drawable/background"
         android:layout_alignParentBottom="true" />
 
     <LinearLayout
@@ -31,7 +30,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/imageView2"
             android:background="@drawable/mainmenu"
-            android:layout_marginBottom="150dp" />
+            android:layout_marginBottom="80dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -41,7 +40,8 @@
             android:id="@+id/button"
             android:layout_marginBottom="10dp"
             android:onClick="singlePlayer"
-            android:background="@drawable/button"   />
+            android:background="@drawable/button"
+            android:layout_gravity="center_horizontal" />
 
         <Button
             android:layout_width="wrap_content"
@@ -56,7 +56,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="        High Scores        "
+            android:text="        High Score         "
             android:textColor="@color/white"
             android:id="@+id/button3"
             android:layout_marginBottom="10dp"
