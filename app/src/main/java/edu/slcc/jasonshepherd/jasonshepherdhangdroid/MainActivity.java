@@ -100,4 +100,16 @@ public class MainActivity extends AppCompatActivity {
         Log.d("JSLOG", "High Scores selected. HighScoresActivity started.");
 
     }
+
+    public void startTextPlayerGame(View view) {
+        //explicit intent sends a message to start an activity
+        Intent intent = new Intent(this, StartTextActivity.class);
+        startActivity(intent);
+    }
+
+    public void loadContacts(View view) {
+        //update scores xml
+        Intent intent = new Intent(this, ContactsActivity.class);
+        startActivity(intent);
+    }
 }
